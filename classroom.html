@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom - ACCIE Lit Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #f5f7fa, #a1c4fd);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+        }
+
+        /* Headings Styling */
+        h1, h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Literary List Styling */
+        .literary-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .literary-list li {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .literary-list li:hover {
+            background: #90caf9;
+        }
+
+        /* Literary Content Styling */
+        .literary-content {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background: #eef;
+            border-radius: 5px;
+        }
+
+        /* Highlighted Words Styling */
+        .highlight {
+            font-weight: bold;
+            background-color: #ffeb3b;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0 5px;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight:hover {
+            background-color: #fbc02d;
+        }
+
+        /* Definition Container Styling */
+        .definition-container {
+            background: #f7f7f7;
+            border-radius: 5px;
+            margin-top: 10px;
+            padding: 10px;
+            display: none;
+            border-left: 4px solid #4CAF50;
+            text-align: left;
+        }
+
+        .definition-container p {
+            margin: 5px 0;
+        }
+
+        /* Button Styling */
+        .button {
+            padding: 10px 15px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        /* Comment Section Styling */
+        .comment-section {
+            text-align: left;
+            margin-top: 20px;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .comment {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #ccc;
+            display: inline-block;
+        }
+
+        .comment-body {
+            max-width: 80%;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .comment-submit {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment-submit:hover {
+            background-color: #45a049;
+        }
+
+        .comment-submit:focus {
+            outline: none;
+        }
+
+        /* Delete Button */
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Updated Button Style for "Go to Dictionary" and "View Additional Stories" */
+        .simple-btn,
+        .dictionary-btn {
+            padding: 10px 15px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .simple-btn:hover,
+        .dictionary-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your Classroom</h1>
+        <p id="classroomInfo"></p>
+        
+        <h2>Philippine Literary Pieces</h2>
+        <ul class="literary-list" id="literaryList">
+            <!-- Let's Go Visit Thailand! -->
+            <li onclick="toggleStory('Lets Go Visit Thailand!')">Let's Go Visit Thailand!</li>
+            <div id="Lets Go Visit Thailand!" class="literary-content">
+                <p id="storyText">
+                    Thailand is one country in Southeast Asia worth visiting if you are a culture-oriented person. Why? There are countless reasons but try considering some. First, Bangkok, the capital city, is just three and a half hours of flight away from our country. The fare is not that much compared to other nearby cities or countries like <span class="highlight" onclick="showDefinition('Southeast')">Southeast</span> Asia. Second, there are lots of sights, sounds, smells, and tastes to experience. Very interesting are the various types of statues of Buddha in <span class="highlight" onclick="showDefinition('temples')">temples</span> of worship. The floating markets are an awesome sight and place to be if you are to spend your whole day with adventure and do are the shopping centers. A four-day-three-night stay in Bangkok, Thailand may just be a dream, much like in our country. However, it is its amazing culture that attracts you to always return for the second time, third time, and so on.
+                </p>
+            </div>
+
+            <!-- The Stonecutter -->
+            <li onclick="toggleStory('stoneCutter')">The Stonecutter</li>
+            <div id="stoneCutter" class="literary-content">
+                <p id="storyText">
+                    There was once a <span class="highlight" onclick="showDefinition('stonecutter')">stonecutter</span> who was dissatisfied with himself and with his position in life. One day, he passed a wealthy merchant's house and through the open gateway saw many fine possessions and important visitors. "How powerful that merchant must be?" thought the stonecutter. He became very envious, and wished that he would no longer have to live the life of mere stonecutter. To his great surprise, he suddenly became the merchant, enjoying more luxuries and power than he had ever dreamed of, envied and detested by those less wealthy than himself. But soon a high official passed by, carried in a sedan chair, accompanied by attendants, and escorted by soldiers beating gongs. Everyone, no matter how wealthy, had to bow low before the procession. "How powerful that official is!" he thought. "I wish that I could be a high official!" 
+                    Then he became high official, carried everywhere in his embroidered sedan chair, feared and hated by the people all around, who had to bow down before him as he passed. It was a hot summer day, and the official felt very uncomfortable in the sticky sedan chair. He looked up at the sun. It shone proudly in the sky, unaffected by his presence. "How powerful the sun is!" he thought. "I wish I could be the sun!"
+                </p>
+            </div>
+
+            <!-- Adopting a Pet from the Pound -->
+            <li onclick="toggleStory('adoptingPet')">Adopting a Pet from the Pound</li>
+            <div id="adoptingPet" class="literary-content">
+                <p id="storyText">
+                    Owning a pet from the pound or Animal Rescue League has many advantages. First of all, a child feels good about rescuing an abandoned or abused animal and giving it a whole new life. Besides, if the animals from the pound aren't adopted right away, they might be put to sleep. Having a pet also means lots of responsibilities. A child has to feed, clean up after, brush, and exercise the pet. Another great advantage of having a pet from the pound is the price of these cute and cuddly animals. Pets from the pound cost a lot less than pets at a fancy pet store, which can cost hundreds of dollars.
+                    Once you adopt a pet from the Animal Rescue League, it will quickly become a part of your family. If you are thinking of adopting a pet, you might consider choosing a <span class="highlight" onclick="showDefinition('dog')">dog</span> or a <span class="highlight" onclick="showDefinition('cat')">cat</span>. Dogs and cats can bring lots of happy times to a family, and they can be excellent companions for a person who lives alone or someone who has lost a loved one. Dogs are also a wonderful source of protection. Cats are funny, and they may help to calm people down when they are sad or mad.
+                </p>
+            </div>
+        </ul>
+
+        <!-- Button to go to the assessment page -->
+        <button class="button" onclick="redirectToAssessment()">Go to Assessment</button>
+
+        <!-- Button to view additional stories -->
+        <button class="simple-btn" onclick="window.location.href='stories.html'">View Additional Stories</button>
+
+        <!-- Button to go to Dictionary -->
+        <button class="dictionary-btn" onclick="window.location.href='dictionary.html'">Go to Dictionary</button>
+
+        <!-- Comment Section -->
+        <h2>Leave a Comment</h2>
+        <textarea class="comment-input" id="commentInput" placeholder="Type your comment..."></textarea>
+        <button class="comment-submit" onclick="postComment()">Post Comment</button>
+
+        <div class="comment-section" id="commentSection">
+            <!-- Existing comments will be appended here dynamically -->
+        </div>
+
+        <!-- Definition Modal -->
+        <div id="wordDefinition">
+            <p>Click on a highlighted word to see its definition here.</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to redirect to the assessment page
+        function redirectToAssessment() {
+            window.location.href = "assessment-page.html"; // Update the URL to your actual assessment page URL
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let params = new URLSearchParams(window.location.search);
+            let className = params.get("name");
+            let classCode = params.get("code");
+            document.getElementById("classroomInfo").innerText = `Classroom: ${className} (Code: ${classCode})`;
+        });
+
+        function toggleStory(id) {
+            let element = document.getElementById(id);
+            element.style.display = element.style.display === "none" ? "block" : "none";
+        }
+
+        function showDefinition(word) {
+            let definition = '';
+            switch(word) {
+                case 'Southeast':
+                    definition = 'Southeast Asia is a region of Asia that includes countries like Thailand, Indonesia, and Vietnam.'; break;
+                case 'temples':
+                    definition = 'Temples are places of worship, especially in certain religions like Buddhism and Hinduism.'; break;
+                case 'stonecutter':
+                    definition = 'A stonecutter is a person who carves or shapes stone, especially for construction or sculpture.'; break;
+                case 'dog':
+                    definition = 'A dog is a domesticated carnivorous mammal, commonly kept as a pet or for work.'; break;
+                case 'cat':
+                    definition = 'A cat is a small domesticated carnivorous mammal, often kept as a pet.'; break;
+                default:
+                    definition = 'Definition not found.'; break;
+            }
+            const definitionContainer = document.getElementById('wordDefinition');
+            definitionContainer.innerHTML = `<p><strong>${word}:</strong> ${definition}</p>`;
+            definitionContainer.style.display = 'block';
+        }
+
+        // Function to post a comment
+        function postComment() {
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+            if (commentText !== '') {
+                const commentSection = document.getElementById('commentSection');
+
+                // Create the comment elements
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+
+                const commentAvatar = document.createElement('div');
+                commentAvatar.classList.add('comment-avatar');
+
+                const commentBody = document.createElement('div');
+                commentBody.classList.add('comment-body');
+
+                const commentContent = document.createElement('p');
+                commentContent.innerText = commentText;
+
+                const commentTime = document.createElement('span');
+                commentTime.classList.add('comment-time');
+                commentTime.innerText = new Date().toLocaleString();
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.innerText = 'Delete';
+                deleteBtn.onclick = function() {
+                    commentSection.removeChild(commentDiv);
+                };
+
+                commentBody.appendChild(commentContent);
+                commentBody.appendChild(commentTime);
+                commentDiv.appendChild(commentAvatar);
+                commentDiv.appendChild(commentBody);
+                commentDiv.appendChild(deleteBtn);
+
+                // Append the comment to the comment section
+                commentSection.appendChild(commentDiv);
+
+                // Clear the input field
+                commentInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

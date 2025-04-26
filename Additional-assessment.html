@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Assessments</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('BG2.jpg'); /* Background image */
+    background-size: cover; /* Ensure the background image covers the screen */
+    background-position: center center; /* Center the background image */
+    background-attachment: fixed; /* Optional: Parallax effect */
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+    padding-top: 20px;
+}
+        /* Header Styles */
+        h1 {
+            font-size: 2.5em;
+            color: #00796b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #004d40;
+        }
+
+        /* Main Container Styling */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 750px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* Question Box Styling */
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #00796b;
+            font-size: 1.1em;
+        }
+
+        .question p {
+            margin: 5px 0;
+        }
+
+        /* Input and Button Styling */
+        .question input,
+        .question button,
+        .question select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .question button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .question button:hover {
+            background-color: #004d40;
+        }
+
+        .question button:active {
+            background-color: #00332f;
+        }
+
+        .question button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Feedback Message Styling */
+        .feedback {
+            color: #00796b;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .feedback.correct {
+            color: green;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            color: red;
+            display: block;
+        }
+
+        /* Styling for the Classroom Code */
+        .classroom-code {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #00796b;
+        }
+
+        /* Reset Button */
+        .reset-button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1em;
+        }
+
+        .reset-button:hover {
+            background-color: #ff3d32;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            .question input,
+            .question button,
+            .question select {
+                font-size: 0.9em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Additional Assessments</h1>
+
+    <div id="classroomCodeContainer" class="container">
+        <h2>Classroom Code</h2>
+        <div id="classroomCode"></div>
+    </div>
+    
+    <div class="container">
+        <h2>Terms</h2>
+        <div id="termsList"></div>
+    </div>
+
+    <div class="container">
+        <h2>Jumbled Words</h2>
+        <div id="jumbledWordsList"></div>
+    </div>
+
+    <div class="container">
+        <h2>Fill in the Blank Questions</h2>
+        <div id="blankQuestionsList"></div>
+    </div>
+
+    <div class="container">
+        <h2>Yes/No Questions</h2>
+        <div id="yesNoQuestionsList"></div>
+    </div>
+
+    <div class="container">
+        <h2>Definition of Terms</h2>
+        <div id="definitionOfTermsList"></div>
+    </div>
+    
+    <div class="container">
+        <h2>Multiple Choice Questions</h2>
+        <div id="mcqQuestionsList"></div>
+    </div>
+
+    <button class="reset-button" onclick="resetAll()">Reset All Answers</button>
+
+    <script>
+        // Retrieve data from localStorage
+        const terms = JSON.parse(localStorage.getItem("terms")) || [];
+        const jumbledWords = JSON.parse(localStorage.getItem("jumbledWords")) || [];
+        const fillInBlankQuestions = JSON.parse(localStorage.getItem("fillInBlankQuestions")) || [];
+        const yesNoQuestions = JSON.parse(localStorage.getItem("yesNoQuestions")) || [];
+        const definitionOfTerms = JSON.parse(localStorage.getItem("definitionOfTerms")) || [];
+        const classroomCode = localStorage.getItem("classroomCode") || "No classroom code saved.";
+
+        // Render Terms
+        function renderTerms() {
+            const list = document.getElementById("termsList");
+            list.innerHTML = "";
+            if (terms.length === 0) {
+                list.innerHTML = "<p>No terms saved yet.</p>";
+            } else {
+                terms.forEach(function(term) {
+                    const termElement = document.createElement("div");
+                    termElement.classList.add("question");
+                    termElement.innerHTML = `<p>Term: ${term.word}</p>`;
+                    list.appendChild(termElement);
+                });
+            }
+        }
+
+        // Render Jumbled Words with Answer Input
+        function renderJumbledWords() {
+            const list = document.getElementById("jumbledWordsList");
+            list.innerHTML = "";
+            if (jumbledWords.length === 0) {
+                list.innerHTML = "<p>No jumbled words saved yet.</p>";
+            } else {
+                jumbledWords.forEach(function(wordObj, index) {
+                    const wordElement = document.createElement("div");
+                    wordElement.classList.add("question");
+                    wordElement.innerHTML = ` 
+                        <p>Original Word: ${wordObj.originalWord}</p>
+                        <p>Jumbled Word: ${wordObj.jumbledWord}</p>
+                        <input type="text" id="answerJumbledWord${index}" placeholder="Enter your answer">
+                        <button onclick="checkJumbledWord(${index})">Check Answer</button>
+                        <p id="feedbackJumbledWord${index}" class="feedback"></p>
+                    `;
+                    list.appendChild(wordElement);
+                });
+            }
+        }
+
+        // Check Jumbled Word Answer
+        function checkJumbledWord(index) {
+            const studentAnswer = document.getElementById(`answerJumbledWord${index}`).value.trim();
+            const feedbackElement = document.getElementById(`feedbackJumbledWord${index}`);
+            const button = document.querySelector(`#jumbledWordsList button:nth-child(${index+1})`);
+
+            if (studentAnswer === "") {
+                feedbackElement.textContent = "Please enter an answer!";
+                feedbackElement.classList.remove("correct", "incorrect");
+                feedbackElement.classList.add("incorrect");
+                return;
+            }
+
+            if (studentAnswer.toLowerCase() === jumbledWords[index].originalWord.toLowerCase()) {
+                feedbackElement.textContent = "Correct!";
+                feedbackElement.classList.remove("incorrect");
+                feedbackElement.classList.add("correct");
+                button.disabled = true;  // Disable button after correct answer
+            } else {
+                feedbackElement.textContent = "Incorrect. Try again!";
+                feedbackElement.classList.remove("correct");
+                feedbackElement.classList.add("incorrect");
+            }
+        }
+
+        // Render other question types similarly (Fill-in-the-Blank, Yes/No, Definition of Terms, etc.)
+
+        // Display Classroom Code
+        function renderClassroomCode() {
+            const codeElement = document.getElementById("classroomCode");
+            codeElement.innerHTML = `<p>${classroomCode}</p>`;
+        }
+
+        // Reset all answers
+        function resetAll() {
+            localStorage.clear();  // Clear saved data
+            location.reload();     // Reload page to reset UI
+        }
+
+        // Render all saved assessments
+        renderTerms();
+        renderJumbledWords();
+        renderClassroomCode();
+        // Similar functions for other assessments
+
+    </script>
+
+</body>
+</html>

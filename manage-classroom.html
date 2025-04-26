@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Classroom - ACCIE Lit Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1D3557;
+      --accent: #457B9D;
+      --white: #ffffff;
+      --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 40px 30px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: var(--card-shadow);
+    }
+
+    .logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+    }
+
+    .button {
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 12px 26px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .button:hover {
+      background-color: var(--primary);
+    }
+
+    .manage-container {
+      display: none;
+      margin-top: 25px;
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    select {
+      padding: 14px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: #f9f9f9;
+    }
+
+    @media (max-width: 480px) {
+      .overlay {
+        padding: 25px 20px;
+      }
+
+      .logo {
+        width: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <img src="LOGO.png" alt="ACCIE Logo" class="logo" />
+    
+    <h1>Welcome to the Classroom Management System</h1>
+    
+    <button id="manageBtn" class="button" onclick="toggleManage()">Manage Classroom</button>
+
+    <div id="manageContainer" class="manage-container">
+      <h2>Manage Classroom</h2>
+      <form id="manageForm">
+        <select id="actionSelect">
+          <option value="addLiteraryPiece">Add Literary Piece</option>
+          <option value="addAssessment">Add Assessment</option>
+          <option value="viewStudentRecords">View Student Records</option>
+          <option value="removeMember">Remove Member</option>
+        </select>
+        <button type="button" class="button" onclick="handleManageAction()">Go</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function toggleManage() {
+      const container = document.getElementById("manageContainer");
+      container.style.display = container.style.display === "none" || container.style.display === "" ? "block" : "none";
+    }
+
+    function handleManageAction() {
+      const action = document.getElementById("actionSelect").value;
+
+      switch (action) {
+        case "addLiteraryPiece":
+          window.location.href = "add-literary-piece.html";
+          break;
+        case "addAssessment":
+          window.location.href = "create-and-view.html";
+          break;
+        case "viewStudentRecords":
+          window.location.href = "view-student-records.html";
+          break;
+        case "removeMember":
+          const confirmRemove = confirm("Are you sure you want to remove this member?");
+          if (confirmRemove) {
+            window.location.href = "remove-member.html";
+          } else {
+            alert("Member removal canceled.");
+          }
+          break;
+        default:
+          alert("Please select an action.");
+          break;
+      }
+    }
+  </script>
+
+</body>
+</html>

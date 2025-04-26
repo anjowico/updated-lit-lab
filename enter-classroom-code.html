@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Classroom Code - ACCIE Lit Lab</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f1f8ff, #e0e7ff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .alert {
+            color: #f44336;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Enter Classroom Code</h1>
+        <input type="text" id="classroomCodeInput" placeholder="Enter Classroom Code" required>
+        <button onclick="verifyClassroomCode()">Submit</button>
+        <p id="alertMessage" class="alert"></p>
+    </div>
+
+    <script>
+        // Function to verify the classroom code
+        function verifyClassroomCode() {
+            const enteredCode = document.getElementById("classroomCodeInput").value.trim();  // Ensure trimming spaces
+            const classrooms = JSON.parse(localStorage.getItem("classrooms")) || [];  // Retrieve array of classrooms from localStorage
+
+            console.log("Entered Code:", enteredCode);  // Debugging: Check what the user entered
+            console.log("Saved Classrooms:", classrooms);  // Debugging: Check the classrooms stored in localStorage
+
+            // Check if the entered code is empty
+            if (enteredCode === "") {
+                const alertMessage = document.getElementById("alertMessage");
+                alertMessage.textContent = "Please enter a classroom code.";
+                alertMessage.style.display = "block";
+                return;
+            }
+
+            // Case-insensitive search for the classroom
+            const classroom = classrooms.find(c => c.code.toLowerCase() === enteredCode.toLowerCase());
+
+            if (classroom) {
+                console.log("Classroom found:", classroom);  // Debugging: Check if the classroom is found
+                // Redirect to the manage-classroom.html with the classroom code and name as query parameters
+                window.location.href = `manage-classroom.html?classroomCode=${enteredCode}&classroomName=${encodeURIComponent(classroom.name)}`;
+            } else {
+                const alertMessage = document.getElementById("alertMessage");
+                alertMessage.textContent = "Invalid classroom code. Please try again.";
+                alertMessage.style.display = "block";
+            }
+        }
+
+        // Optional: Hide the error message as the user types
+        document.getElementById("classroomCodeInput").addEventListener("input", function() {
+            const alertMessage = document.getElementById("alertMessage");
+            alertMessage.style.display = "none";  // Hide the alert message when the user starts typing
+        });
+    </script>
+</body>
+</html>

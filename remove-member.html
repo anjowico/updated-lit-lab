@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Member</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Container for the form */
+        .form-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="email"]:focus {
+            border-color: #4CAF50;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .button:active {
+            background-color: #388e3c;
+        }
+
+        /* Style for the alert message */
+        .alert {
+            margin-top: 20px;
+            padding: 15px;
+            color: white;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .success {
+            background-color: #4CAF50;
+        }
+
+        .error {
+            background-color: #f44336;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Remove Member</h1>
+
+        <!-- Form to remove a member by email -->
+        <form id="removeMemberForm">
+            <label for="memberEmail">Enter Member's Email to Remove:</label><br>
+            <input type="email" id="memberEmail" name="memberEmail" required><br>
+            <button class="button" type="submit">Remove Member</button>
+        </form>
+        
+        <!-- Alert message for success or failure -->
+        <div id="alertMessage" class="alert"></div>
+    </div>
+
+    <script>
+        // Classroom related keys in localStorage
+        const classroomKey = "classroomMembers";  // List of all classroom members
+        const studentsKey = "students";  // Student list in the classroom
+        const teachersKey = "teachers";  // Teacher list in the classroom
+        const adminsKey = "admins";  // Admins list in the classroom
+        
+        // Handle form submission
+        document.getElementById("removeMemberForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            const memberEmail = document.getElementById("memberEmail").value.trim();
+            const alertMessage = document.getElementById("alertMessage");
+
+            // Retrieve all related classroom data from localStorage
+            let classroomMembers = JSON.parse(localStorage.getItem(classroomKey)) || [];
+            let students = JSON.parse(localStorage.getItem(studentsKey)) || [];
+            let teachers = JSON.parse(localStorage.getItem(teachersKey)) || [];
+            let admins = JSON.parse(localStorage.getItem(adminsKey)) || [];
+
+            // Check if the member is in any of the lists
+            const isMemberInClassroom = classroomMembers.findIndex(member => member.email === memberEmail);
+            const isStudent = students.findIndex(student => student.email === memberEmail);
+            const isTeacher = teachers.findIndex(teacher => teacher.email === memberEmail);
+            const isAdmin = admins.findIndex(admin => admin.email === memberEmail);
+
+            // Check if the member exists in any list
+            if (isMemberInClassroom === -1 && isStudent === -1 && isTeacher === -1 && isAdmin === -1) {
+                // Member not found in any list
+                alertMessage.textContent = "No member found with this email.";
+                alertMessage.className = "alert error";
+                alertMessage.style.display = "block";
+                return;
+            }
+
+            // Ask for confirmation before removing
+            const confirmation = confirm(`Are you sure you want to remove ${memberEmail} from the classroom and all related lists?`);
+            if (!confirmation) return;  // If user cancels, do nothing
+
+            // Remove the member from all lists
+            if (isMemberInClassroom !== -1) classroomMembers.splice(isMemberInClassroom, 1);
+            if (isStudent !== -1) students.splice(isStudent, 1);
+            if (isTeacher !== -1) teachers.splice(isTeacher, 1);
+            if (isAdmin !== -1) admins.splice(isAdmin, 1);
+
+            // Update localStorage with the modified lists
+            localStorage.setItem(classroomKey, JSON.stringify(classroomMembers));
+            localStorage.setItem(studentsKey, JSON.stringify(students));
+            localStorage.setItem(teachersKey, JSON.stringify(teachers));
+            localStorage.setItem(adminsKey, JSON.stringify(admins));
+
+            // Display success message
+            alertMessage.textContent = `${memberEmail} has been successfully removed from all lists.`;
+            alertMessage.className = "alert success";
+            alertMessage.style.display = "block";
+
+            // Clear the input field
+            document.getElementById("memberEmail").value = "";
+        });
+    </script>
+</body>
+</html>

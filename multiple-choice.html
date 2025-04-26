@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Quiz - Interactive Assessment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f2f6fc, #e6efff);
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .assessment {
+      margin: 0 auto 40px auto;
+      max-width: 900px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .activity {
+      margin-top: 20px;
+    }
+
+    .question-card {
+      background-color: #fdfdfd;
+      border-left: 6px solid #007bff;
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .question-card:hover {
+      transform: scale(1.01);
+    }
+
+    .question-card p {
+      font-weight: bold;
+      color: #444;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 0.95em;
+    }
+
+    .feedback.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .feedback.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .highlight-correct {
+      background-color: #e2f0cb;
+      font-weight: bold;
+    }
+
+    .summary {
+      background-color: #f1f1f1;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌍 Knowledge Quest</h1>
+  <h2>Choose the best answer. Learn something new every time! 💡</h2>
+
+  <div class="assessment">
+    <div class="activity">
+      <h3>✈️ Let's Go Visit Thailand</h3>
+    
+        <p>1. Why is Bangkok considered a good travel destination for culture-oriented people?</p>
+        <div>
+            <label><input type="radio" name="q1Thailand" value="a"> A) It has many modern shopping malls and high-tech attractions.</label><br>
+            <label><input type="radio" name="q1Thailand" value="b"> B) The city is rich in cultural experiences, such as temples and floating markets.</label><br>
+            <label><input type="radio" name="q1Thailand" value="c"> C) It is known for its luxury hotels and fine dining experiences.</label><br>
+            <label><input type="radio" name="q1Thailand" value="d"> D) It is famous for its extreme weather conditions.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q1Thailand', 'b', 'q1ThailandFeedback', 'Thailand Q1')">Submit</button>
+        <div id="q1ThailandFeedback" class="feedback"></div>
+    
+        <p>2. How far is Bangkok from the country mentioned in the story?</p>
+        <div>
+            <label><input type="radio" name="q2Thailand" value="a"> A) A 5-hour flight.</label><br>
+            <label><input type="radio" name="q2Thailand" value="b"> B) A 1-hour flight.</label><br>
+            <label><input type="radio" name="q2Thailand" value="c"> C) A 3.5-hour flight.</label><br>
+            <label><input type="radio" name="q2Thailand" value="d"> D) A 6-hour flight.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q2Thailand', 'c', 'q2ThailandFeedback', 'Thailand Q2')">Submit</button>
+        <div id="q2ThailandFeedback" class="feedback"></div>
+    
+        <p>3. According to the passage, why do people often return to Bangkok after visiting?</p>
+        <div>
+            <label><input type="radio" name="q3Thailand" value="a"> A) Because it offers unique cultural experiences that attract visitors repeatedly.</label><br>
+            <label><input type="radio" name="q3Thailand" value="b"> B) Because the shopping is unbeatable.</label><br>
+            <label><input type="radio" name="q3Thailand" value="c"> C) Because it is easy to visit multiple countries from there.</label><br>
+            <label><input type="radio" name="q3Thailand" value="d"> D) Because the weather is always pleasant.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q3Thailand', 'a', 'q3ThailandFeedback', 'Thailand Q3')">Submit</button>
+        <div id="q3ThailandFeedback" class="feedback"></div>
+    
+        <p>4. What type of experiences does Bangkok offer, according to the story?</p>
+        <div>
+            <label><input type="radio" name="q4Thailand" value="a"> A) An opportunity to relax on beautiful beaches.</label><br>
+            <label><input type="radio" name="q4Thailand" value="b"> B) Experiences involving temples, floating markets, and shopping centers.</label><br>
+            <label><input type="radio" name="q4Thailand" value="c"> C) An adventurous, extreme sports atmosphere.</label><br>
+            <label><input type="radio" name="q4Thailand" value="d"> D) A chance to attend world-renowned music festivals.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q4Thailand', 'b', 'q4ThailandFeedback', 'Thailand Q4')">Submit</button>
+        <div id="q4ThailandFeedback" class="feedback"></div>
+    
+        <p>5. What is one reason people may find it easy to travel to Bangkok from nearby countries?</p>
+        <div>
+            <label><input type="radio" name="q5Thailand" value="a"> A) Bangkok has cheaper flights than other destinations in Southeast Asia.</label><br>
+            <label><input type="radio" name="q5Thailand" value="b"> B) It offers all-inclusive vacation packages.</label><br>
+            <label><input type="radio" name="q5Thailand" value="c"> C) The flight duration is short compared to other destinations.</label><br>
+            <label><input type="radio" name="q5Thailand" value="d"> D) It is a popular stopover between long-haul flights.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q5Thailand', 'c', 'q5ThailandFeedback', 'Thailand Q5')">Submit</button>
+        <div id="q5ThailandFeedback" class="feedback"></div>
+    </div>
+
+<!-- MULTIPLE CHOICE: The Stonecutter -->
+<div class="assessment">
+    <h3>The Stonecutter</h3>
+
+    <div class="activity">
+        <h3>The Stonecutter</h3>
+    
+        <p>1. What does the stonecutter initially desire most in life?</p>
+        <div>
+            <label><input type="radio" name="q1Stonecutter" value="a"> A) To become wealthy and influential.</label><br>
+            <label><input type="radio" name="q1Stonecutter" value="b"> B) To be free from all responsibilities.</label><br>
+            <label><input type="radio" name="q1Stonecutter" value="c"> C) To experience the power of the sun.</label><br>
+            <label><input type="radio" name="q1Stonecutter" value="d"> D) To gain the admiration of others.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q1Stonecutter', 'a', 'q1StonecutterFeedback', 'Stonecutter Q1')">Submit</button>
+        <div id="q1StonecutterFeedback" class="feedback"></div>
+    
+        <p>2. How does the stonecutter's perspective on power change throughout the story?</p>
+        <div>
+            <label><input type="radio" name="q2Stonecutter" value="a"> A) He comes to realize that true power is found in owning property.</label><br>
+            <label><input type="radio" name="q2Stonecutter" value="b"> B) He learns that no form of power is absolute, and each has its own limitations.</label><br>
+            <label><input type="radio" name="q2Stonecutter" value="c"> C) He decides that only people in government positions have real power.</label><br>
+            <label><input type="radio" name="q2Stonecutter" value="d"> D) He grows more content with his original position and never wants to change again.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q2Stonecutter', 'b', 'q2StonecutterFeedback', 'Stonecutter Q2')">Submit</button>
+        <div id="q2StonecutterFeedback" class="feedback"></div>
+    
+        <p>3. What does the stonecutter eventually realize at the end of the story?</p>
+        <div>
+            <label><input type="radio" name="q3Stonecutter" value="a"> A) Being a stonecutter was the most powerful position after all.</label><br>
+            <label><input type="radio" name="q3Stonecutter" value="b"> B) The sun is the most powerful force in the world.</label><br>
+            <label><input type="radio" name="q3Stonecutter" value="c"> C) Power is irrelevant when compared to wealth.</label><br>
+            <label><input type="radio" name="q3Stonecutter" value="d"> D) He should have remained a high official to maintain his status.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q3Stonecutter', 'a', 'q3StonecutterFeedback', 'Stonecutter Q3')">Submit</button>
+        <div id="q3StonecutterFeedback" class="feedback"></div>
+    
+        <p>4. What was the stonecutter's final transformation?</p>
+        <div>
+            <label><input type="radio" name="q4Stonecutter" value="a"> A) A high official.</label><br>
+            <label><input type="radio" name="q4Stonecutter" value="b"> B) A cloud.</label><br>
+            <label><input type="radio" name="q4Stonecutter" value="c"> C) A stone.</label><br>
+            <label><input type="radio" name="q4Stonecutter" value="d"> D) The sun.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q4Stonecutter', 'c', 'q4StonecutterFeedback', 'Stonecutter Q4')">Submit</button>
+        <div id="q4StonecutterFeedback" class="feedback"></div>
+    
+        <p>5. What lesson is conveyed through the stonecutter’s journey?</p>
+        <div>
+            <label><input type="radio" name="q5Stonecutter" value="a"> A) Power is most effectively used when it is gained through force.</label><br>
+            <label><input type="radio" name="q5Stonecutter" value="b"> B) One should always strive for higher status to be truly happy.</label><br>
+            <label><input type="radio" name="q5Stonecutter" value="c"> C) True happiness and power come from accepting and valuing one’s own position in life.</label><br>
+            <label><input type="radio" name="q5Stonecutter" value="d"> D) The most powerful people never face any challenges.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q5Stonecutter', 'c', 'q5StonecutterFeedback', 'Stonecutter Q5')">Submit</button>
+        <div id="q5StonecutterFeedback" class="feedback"></div>
+    </div>
+
+    <!-- MULTIPLE CHOICE: The Rescued Pet -->
+    <div class="activity">
+        <h3>The Rescued Pet</h3>
+    
+        <p>1. What is one of the key advantages of adopting a pet from the pound, according to the passage?</p>
+        <div>
+            <label><input type="radio" name="q1Pet" value="a"> A) The pets are always already house-trained.</label><br>
+            <label><input type="radio" name="q1Pet" value="b"> B) Adopting a pet costs significantly less than buying from a pet store.</label><br>
+            <label><input type="radio" name="q1Pet" value="c"> C) Pets from the pound come with a lifetime of supplies.</label><br>
+            <label><input type="radio" name="q1Pet" value="d"> D) Pets from the pound are guaranteed to be healthier than those from stores.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q1Pet', 'b', 'q1PetFeedback', 'Pet Q1')">Submit</button>
+        <div id="q1PetFeedback" class="feedback"></div>
+    
+        <p>2. Which responsibility does the passage say a child must take on when adopting a pet?</p>
+        <div>
+            <label><input type="radio" name="q2Pet" value="a"> A) Socializing the pet with other animals.</label><br>
+            <label><input type="radio" name="q2Pet" value="b"> B) Feeding, cleaning, and exercising the pet.</label><br>
+            <label><input type="radio" name="q2Pet" value="c"> C) Training the pet to perform tricks.</label><br>
+            <label><input type="radio" name="q2Pet" value="d"> D) Creating a social media account for the pet.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q2Pet', 'b', 'q2PetFeedback', 'Pet Q2')">Submit</button>
+        <div id="q2PetFeedback" class="feedback"></div>
+    
+        <p>3. What emotional benefit does adopting a pet from the pound provide to a child?</p>
+        <div>
+            <label><input type="radio" name="q3Pet" value="a"> A) It helps them feel responsible but also stressed.</label><br>
+            <label><input type="radio" name="q3Pet" value="b"> B) It makes them feel proud to give an abandoned animal a second chance.</label><br>
+            <label><input type="radio" name="q3Pet" value="c"> C) It teaches them how to manage large amounts of money.</label><br>
+            <label><input type="radio" name="q3Pet" value="d"> D) It allows them to immediately bond with the pet as a perfect companion.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q3Pet', 'b', 'q3PetFeedback', 'Pet Q3')">Submit</button>
+        <div id="q3PetFeedback" class="feedback"></div>
+    
+        <p>4. What type of animals does the passage suggest adopting from the pound?</p>
+        <div>
+            <label><input type="radio" name="q4Pet" value="a"> A) Only small pets, such as hamsters and birds.</label><br>
+            <label><input type="radio" name="q4Pet" value="b"> B) Mainly exotic pets, such as reptiles and tropical fish.</label><br>
+            <label><input type="radio" name="q4Pet" value="c"> C) Dogs and cats, which can provide emotional support and protection.</label><br>
+            <label><input type="radio" name="q4Pet" value="d"> D) Only large pets, like horses and goats.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q4Pet', 'c', 'q4PetFeedback', 'Pet Q4')">Submit</button>
+        <div id="q4PetFeedback" class="feedback"></div>
+    
+        <p>5. How can a pet like a dog or cat help a person who is living alone, according to the passage?</p>
+        <div>
+            <label><input type="radio" name="q5Pet" value="a"> A) They provide a source of entertainment.</label><br>
+            <label><input type="radio" name="q5Pet" value="b"> B) They give protection and companionship, and can help ease loneliness.</label><br>
+            <label><input type="radio" name="q5Pet" value="c"> C) They increase social media followers.</label><br>
+            <label><input type="radio" name="q5Pet" value="d"> D) They allow the person to make new friends in the neighborhood.</label>
+        </div>
+        <button class="button" onclick="checkMultipleChoice('q5Pet', 'b', 'q5PetFeedback', 'Pet Q5')">Submit</button>
+        <div id="q5PetFeedback" class="feedback"></div>
+    </div>
+
+<!-- SCORE SUMMARY BUTTON -->
+<div style="margin-top: 30px;">
+    <button class="button" onclick="showFinalScore()">Show Final Score</button>
+    <div id="scoreSummary" class="feedback summary"></div>
+</div>
+
+<!-- JAVASCRIPT FUNCTIONALITY -->
+<script>
+function checkMultipleChoice(questionName, correctAnswer, feedbackId, assessmentLabel) {
+    const options = document.getElementsByName(questionName);
+    let selectedValue = '';
+    let selectedOption = null;
+
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+            selectedValue = options[i].value;
+            selectedOption = options[i];
+            break;
+        }
+    }
+
+    const feedbackElement = document.getElementById(feedbackId);
+    if (!selectedValue) {
+        showFeedback(feedbackElement, '❗ Please select an answer.', 'error');
+        return;
+    }
+
+    // Disable all options after selection
+    options.forEach(opt => opt.disabled = true);
+
+    if (selectedValue === correctAnswer) {
+        showFeedback(feedbackElement, '✅ Correct!', 'success');
+        saveAssessmentResult(assessmentLabel, 1);
+    } else {
+        showFeedback(feedbackElement, `❌ Incorrect. The correct answer was: ${correctAnswer.toUpperCase()}`, 'error');
+        highlightCorrectOption(questionName, correctAnswer);
+        saveAssessmentResult(assessmentLabel, 0);
+    }
+}
+
+function showFeedback(element, message, type) {
+    element.textContent = message;
+    element.style.display = 'block';
+    element.style.padding = '10px';
+    element.style.borderRadius = '5px';
+    element.style.transition = 'all 0.3s ease';
+
+    if (type === 'success') {
+        element.style.backgroundColor = '#d4edda';
+        element.style.color = '#155724';
+    } else {
+        element.style.backgroundColor = '#f8d7da';
+        element.style.color = '#721c24';
+    }
+}
+
+function highlightCorrectOption(questionName, correctValue) {
+    const options = document.getElementsByName(questionName);
+    options.forEach(opt => {
+        if (opt.value === correctValue) {
+            opt.parentElement.classList.add('highlight-correct');
+        }
+    });
+}
+
+function saveAssessmentResult(assessment, result) {
+    let results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+    results.push({ assessment: assessment, result: result });
+    localStorage.setItem('assessmentResults', JSON.stringify(results));
+}
+
+function showFinalScore() {
+    const results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+    const total = results.length;
+    const correct = results.filter(r => r.result === 1).length;
+    const summaryText = total > 0 
+        ? `📊 You answered ${correct} out of ${total} questions correctly.` 
+        : '📝 No questions have been answered yet.';
+    
+    const feedback = document.getElementById('scoreSummary');
+    showFeedback(feedback, summaryText, correct / total >= 0.7 ? 'success' : 'error');
+}
+</script>
+
+</body>
+</html>
+
+
+
+<!-- Let's Go Visit Thailand Activity -->
+<div class="assessment">
+    <h2>🇹🇭 Let's Go Visit Thailand</h2>
+    <p>The story of <strong>Let's Go Visit Thailand</strong> takes us on an exciting journey to a beautiful country, exploring its culture, cuisine, and landmarks. Read through the questions below based on the story.</p>
+   <!-- Activities here -->
+
+   <div class="activity">
+    <h3>🔤 Jumbled Word</h3>
+    <p>Rearrange the jumbled letters to form a word: <strong>TALNADIH</strong></p>
+    <input type="text" id="jumbledThailand" class="input-box" placeholder="Type the word here">
+    <button class="button" onclick="checkJumbledWord('thailand', 'jumbledThailand', 'thailandFeedback', 'Jumbled Word - Thailand')">✅ Submit</button>
+    <div id="thailandFeedback" class="feedback"></div>
+</div>
+
+<div class="activity">
+    <h3>📘 Definition of Terms</h3>
+    <div class="question-section">
+        <label for="word1Thailand">Word 1: <strong>Culture</strong></label><br>
+        <textarea id="word1Thailand" class="input-box" placeholder="Write the definition for Culture"></textarea>
+    </div>
+    <div class="question-section">
+        <label for="word2Thailand">Word 2: <strong>Cuisine</strong></label><br>
+        <textarea id="word2Thailand" class="input-box" placeholder="Write the definition for Cuisine"></textarea>
+    </div>
+    <button class="button" onclick="submitDefinitions('word1Thailand', 'word2Thailand', 'thailandDefinitionFeedback', 'Definitions - Thailand')">S✅ Submit Definitions</button>
+    <div id="thailandDefinitionFeedback" class="feedback"></div>
+</div>
+
+<div class="activity">
+    <h3>✍️ Fill in the Blank</h3>
+    <p>1. Thailand is famous for its delicious __________. (Hint: food)</p>
+    <input type="text" id="fillThailandBlank" class="input-box" placeholder="Type the word here">
+    <button class="button" onclick="checkFillInBlank('cuisine', 'fillThailandBlank', 'thailandFillBlankFeedback', 'Fill in the Blank - Thailand')">✅ Submit</button>
+    <div id="thailandFillBlankFeedback" class="feedback"></div>
+</div>
+
+<div class="activity">
+    <h3>👍👎 Yes/No Question</h3>
+    <p>2. Thailand is known for its beautiful temples and beaches. (True/False)</p>
+    <div class="yes-no-btns">
+        <button onclick="checkYesNo('true', 'thailandYesNoFeedback', 'Yes/No - Thailand')">👍 Yes</button>
+        <button onclick="checkYesNo('false', 'thailandYesNoFeedback', 'Yes/No - Thailand')">👎 No</button>
+    </div>
+    
+    <div id="thailandYesNoFeedback" class="feedback"></div>
+</div>
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- The Stonecutter Activity -->
+<div class="assessment">
+    <h2>🪨 Stonecutter</h2>
+    <p>The story of <strong>The Stonecutter</strong> shows the importance of being content with one's life. Read through the questions below based on the story</p>
+    <!-- Activities here -->
+
+    <div class="activity">
+        <h3>🔤 Jumbled Word</h3>
+        <p>Rearrange the jumbled letters to form a word: <strong>ERTSTNEOCUT</strong></p>
+        <input type="text" id="jumbledStonecutter" class="input-box" placeholder="Type the word here">
+        <button class="button" onclick="checkJumbledWord('stonecutter', 'jumbledStonecutter', 'stonecutterFeedback', 'Jumbled Word - Stonecutter')">✅ Submit</button>
+        <div id="stonecutterFeedback" class="feedback"></div>
+    </div>
+
+    <div class="activity">
+        <h3>📘 Definition of Terms</h3>
+        <div class="question-section">
+            <label for="word1Stonecutter">Word 1: <strong>Envy</strong></label><br>
+            <textarea id="word1Stonecutter" class="input-box" placeholder="Write the definition for Envy"></textarea>
+        </div>
+        <div class="question-section">
+            <label for="word2Stonecutter">Word 2: <strong>Contentment</strong></label><br>
+            <textarea id="word2Stonecutter" class="input-box" placeholder="Write the definition for Contentment"></textarea>
+        </div>
+        <button class="button" onclick="submitDefinitions('word1Stonecutter', 'word2Stonecutter', 'stonecutterDefinitionFeedback', 'Definitions - Stonecutter')">✅ Submit Definitions</button>
+        <div id="stonecutterDefinitionFeedback" class="feedback"></div>
+    </div>
+
+    <div class="activity">
+        <h3>✍️ Fill in the Blank</h3>
+        <p>1. The stonecutter wished for more power out of __________. (Hint: a feeling of desire)</p>
+        <input type="text" id="fillStonecutterBlank" class="input-box" placeholder="Type the word here">
+        <button class="button" onclick="checkFillInBlank('envy', 'fillStonecutterBlank', 'stonecutterFillBlankFeedback', 'Fill in the Blank - Stonecutter')">✅ Submit</button>
+        <div id="stonecutterFillBlankFeedback" class="feedback"></div>
+    </div>
+
+    <div class="activity">
+        <h3>👍👎 Yes/No Question</h3>
+        <p>2. The stonecutter was satisfied with his life after realizing the value of contentment. (True/False)</p>
+        <div class="yes-no-btns">
+            <button onclick="checkYesNo('true', 'stonecutterYesNoFeedback', 'Yes/No - Stonecutter')">👍 Yes</button>
+            <button onclick="checkYesNo('false', 'stonecutterYesNoFeedback', 'Yes/No - Stonecutter')">👎 No</button>
+        </div>
+        
+        <div id="stonecutterYesNoFeedback" class="feedback"></div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- The Rescued Pet Activity -->
+<div class="assessment">
+    <h2>🐾 The Rescued Pet</h2>
+    <p>The story of <strong>The Rescued Pet</strong> emphasizes the importance of rescuing animals and giving them a loving home. Read through the questions below based on the story.</p>
+    <!-- Activities here -->
+
+    <div class="activity">
+        <h3>🔤 Jumbled Word</h3>
+        <p>Rearrange the jumbled letters to form a word: <strong>TEP</strong></p>
+        <input type="text" id="jumbledPet" class="input-box" placeholder="Type the word here">
+        <button class="button" onclick="checkJumbledWord('pet', 'jumbledPet', 'petFeedback', 'Jumbled Word - Pet')">✅ Submit</button>
+        <div id="petFeedback" class="feedback"></div>
+    </div>
+
+    <div class="activity">
+        <h3>📘 Definition of Terms</h3>
+        <div class="question-section">
+            <label for="word1Pet">Word 1: <strong>Adopt</strong></label><br>
+            <textarea id="word1Pet" class="input-box" placeholder="Write the definition for Adopt"></textarea>
+        </div>
+        <div class="question-section">
+            <label for="word2Pet">Word 2: <strong>Rescue</strong></label><br>
+            <textarea id="word2Pet" class="input-box" placeholder="Write the definition for Rescue"></textarea>
+        </div>
+        <button class="button" onclick="submitDefinitions('word1Pet', 'word2Pet', 'petDefinitionFeedback', 'Definitions - Pet')">✅ Submit Definitions</button>
+        <div id="petDefinitionFeedback" class="feedback"></div>
+    </div>
+
+    <div class="activity">
+        <h3>✍️ Fill in the Blank</h3>
+        <p>1. Adopting a __________ from the pound is a great way to help an animal in need. (Hint: pet)</p>
+        <input type="text" id="fillPetBlank" class="input-box" placeholder="Type the word here">
+        <button class="button" onclick="checkFillInBlank('pet', 'fillPetBlank', 'petFillBlankFeedback', 'Fill in the Blank - Pet')">✅ Submit</button>
+        <div id="petFillBlankFeedback" class="feedback"></div>
+    </div>
+
+    <div class="activity">
+        <h3>👍👎 Yes/No Question</h3>
+        <p>2. It is important to adopt pets instead of buying them from pet stores. (True/False)</p>
+        <div class="yes-no-btns">
+            <button onclick="checkYesNo('true', 'petYesNoFeedback', 'Yes/No - Pet')">👍Yes</button>
+            <button onclick="checkYesNo('false', 'petYesNoFeedback', 'Yes/No - Pet')">👎No</button>
+        </div>
+       
+        
+        <div id="petYesNoFeedback" class="feedback"></div>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+</body>
+</html>

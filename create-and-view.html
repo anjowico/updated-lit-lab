@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Assessments</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0); /* Gradient background */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #00796b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #004d40;
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 30px;
+            text-align: center; /* Center form elements */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            border-color: #00796b;
+            outline: none;
+        }
+
+        .button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #004d40;
+        }
+
+        .button:active {
+            background-color: #00332f;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            color: #00796b;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .saved-assessments ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .saved-assessments li {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-left: 5px solid #00796b;
+        }
+
+        .saved-assessments li p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                width: 90%;
+            }
+
+            .button {
+                font-size: 1.1em;
+            }
+
+            .saved-assessments li {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vocabulary Assessments</h1>
+
+    <!-- Jumbled Words Assessment Section (Teacher Adds) -->
+    <div class="container">
+        <h2>Jumbled Words Assessment</h2>
+        <form id="jumbledWordsForm">
+            <label for="wordToJumble">Enter a word to jumble for students:</label>
+            <input type="text" id="wordToJumble" name="wordToJumble" placeholder="Enter word" required>
+            <button type="submit" class="button">Add Word</button>
+        </form>
+        <div id="jumbledWordFeedback" class="feedback"></div>
+        <div id="jumbledWordsList"></div>
+    </div>
+
+    <!-- Vocabulary Terms Section -->
+    <form id="definitionForm">
+        <label for="termWord">Enter a term (word) for the assessment:</label>
+        <input type="text" id="termWord" name="termWord" placeholder="Enter term" required>
+        <button class="button" type="submit">Add Term</button>
+        <div id="termsList"></div>
+        <button class="button" type="button" id="saveAssessment">Save Assessment</button>
+        <div id="feedback" class="feedback"></div>
+        <div id="error" class="error"></div>
+    </form>
+
+    <!-- Add Classroom Code -->
+    <form id="classroomCodeForm">
+        <label for="classroomCode">Enter Classroom Code:</label>
+        <input type="text" id="classroomCode" name="classroomCode" placeholder="Enter Classroom Code" required>
+    </form>
+
+    <!-- Fill in the Blank Activity Creation -->
+    <div class="container">
+        <h2>Create a Fill in the Blank Question</h2>
+        <form id="createFillInBlankForm">
+            <label for="blankSentence">Enter a sentence with a blank (use __ for the blank):</label>
+            <textarea id="blankSentence" name="blankSentence" placeholder="Example: He was feeling very __ after his long walk." required></textarea>
+            <label for="blankAnswer">Correct Answer:</label>
+            <input type="text" id="blankAnswer" name="blankAnswer" placeholder="e.g., tired" required>
+            <button type="submit" class="button">Save Question</button>
+            <div class="error" id="blankError"></div>
+            <div class="success" id="blankSuccess"></div>
+        </form>
+        <div id="blankQuestionsList"></div>
+    </div>
+
+    <!-- Vocabulary Yes/No Activity Creation -->
+    <div class="container">
+        <h2>Create a Vocabulary Yes/No Question</h2>
+        <form id="createYesNoForm">
+            <label for="yesNoWord">Enter a vocabulary word:</label>
+            <input type="text" id="yesNoWord" name="yesNoWord" placeholder="e.g., excited" required>
+            <label for="yesNoContext">Provide a context for the word:</label>
+            <textarea id="yesNoContext" name="yesNoContext" placeholder="e.g., He was so __ for the party." required></textarea>
+            <label for="yesNoCorrectAnswer">Is the word correct for this context?</label>
+            <select id="yesNoCorrectAnswer" name="yesNoCorrectAnswer">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <button type="submit" class="button">Save Question</button>
+            <div class="error" id="yesNoError"></div>
+            <div class="success" id="yesNoSuccess"></div>
+        </form>
+        <div id="yesNoQuestionsList"></div>
+    </div>
+    <!-- Multiple Choice Question Creation -->
+<div class="container">
+    <h2>Create a Multiple Choice Question</h2>
+    <form id="createMCQForm">
+        <label for="mcqQuestion">Question:</label>
+        <textarea id="mcqQuestion" required></textarea>
+
+        <label for="optionA">Option A:</label>
+        <input type="text" id="optionA" required>
+
+        <label for="optionB">Option B:</label>
+        <input type="text" id="optionB" required>
+
+        <label for="optionC">Option C:</label>
+        <input type="text" id="optionC" required>
+
+        <label for="optionD">Option D:</label>
+        <input type="text" id="optionD" required>
+
+        <label for="correctOption">Correct Option:</label>
+        <select id="correctOption" required>
+            <option value="">--Select Correct Option--</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+
+        <button type="submit" class="button">Save MCQ</button>
+        <div id="mcqFeedback" class="feedback"></div>
+    </form>
+    <div id="mcqList"></div>
+</div>
+
+
+    <!-- View Saved Assessments -->
+    <div class="container saved-assessments">
+        <h2>Saved Assessments</h2>
+        <div id="savedAssessmentsList"></div>
+    </div>
+
+    <script>
+        // Vocabulary Terms Handling
+        let terms = JSON.parse(localStorage.getItem("terms")) || [];
+        let fillInBlankQuestions = JSON.parse(localStorage.getItem("blankQuestions")) || [];
+        let yesNoQuestions = JSON.parse(localStorage.getItem("yesNoQuestions")) || [];
+        let jumbledWords = JSON.parse(localStorage.getItem("jumbledWords")) || [];
+
+        // Jumbled Word Functionality (Teacher adds)
+        function jumbleWord(word) {
+            let jumbled = word.split('').sort(() => Math.random() - 0.5).join('');
+            return jumbled;
+        }
+
+        document.getElementById("jumbledWordsForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const wordToJumble = document.getElementById("wordToJumble").value.trim();
+            const feedback = document.getElementById("jumbledWordFeedback");
+
+            feedback.textContent = '';
+
+            if (wordToJumble !== "") {
+                const jumbled = jumbleWord(wordToJumble);
+                jumbledWords.push({ originalWord: wordToJumble, jumbledWord: jumbled });
+                localStorage.setItem("jumbledWords", JSON.stringify(jumbledWords));
+                document.getElementById("wordToJumble").value = "";
+                feedback.textContent = "Word added to jumbled words!";
+                renderJumbledWords();
+            } else {
+                feedback.textContent = "Please enter a word!";
+            }
+        });
+
+        function renderJumbledWords() {
+            const list = document.getElementById("jumbledWordsList");
+            list.innerHTML = "";
+            jumbledWords.forEach(function(wordObj, index) {
+                const wordElement = document.createElement("div");
+                wordElement.classList.add("question");
+                wordElement.innerHTML = `
+                    <p>Original Word: ${wordObj.originalWord}</p>
+                    <p>Jumbled Word: ${wordObj.jumbledWord}</p>
+                    <button onclick="removeJumbledWord(${index})">Remove</button>
+                `;
+                list.appendChild(wordElement);
+            });
+        }
+
+        function removeJumbledWord(index) {
+            jumbledWords.splice(index, 1);
+            localStorage.setItem("jumbledWords", JSON.stringify(jumbledWords));
+            renderJumbledWords();
+        }
+
+        renderJumbledWords(); // Render on page load
+
+        // Term Saving Functionality
+        document.getElementById("definitionForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const termWord = document.getElementById("termWord").value.trim();
+            const feedback = document.getElementById("feedback");
+
+            feedback.textContent = "";
+
+            if (termWord !== "") {
+                terms.push({ word: termWord });
+                localStorage.setItem("terms", JSON.stringify(terms));
+                document.getElementById("termWord").value = "";
+                feedback.textContent = "Term saved!";
+                renderTerms();
+            } else {
+                feedback.textContent = "Please enter a term!";
+            }
+        });
+
+        function renderTerms() {
+            const list = document.getElementById("termsList");
+            list.innerHTML = "";
+            terms.forEach(function(term, index) {
+                const termElement = document.createElement("div");
+                termElement.classList.add("question");
+                termElement.innerHTML = `
+                    <p>Term: ${term.word}</p>
+                    <button onclick="removeTerm(${index})">Remove</button>
+                `;
+                list.appendChild(termElement);
+            });
+        }
+
+        function removeTerm(index) {
+            terms.splice(index, 1);
+            localStorage.setItem("terms", JSON.stringify(terms));
+            renderTerms();
+        }
+
+        renderTerms(); // Render on page load
+
+        // Save and Redirect with Classroom Code
+        document.getElementById("saveAssessment").addEventListener("click", function() {
+            const classroomCode = document.getElementById("classroomCode").value.trim();
+            const feedback = document.getElementById("feedback");
+
+            // Validate classroom code
+            if (classroomCode === "") {
+                document.getElementById("error").textContent = "Please enter a classroom code!";
+                return;
+            }
+
+            // Save assessments and classroom code
+            localStorage.setItem("terms", JSON.stringify(terms));
+            localStorage.setItem("jumbledWords", JSON.stringify(jumbledWords));
+            localStorage.setItem("fillInBlankQuestions", JSON.stringify(fillInBlankQuestions));
+            localStorage.setItem("yesNoQuestions", JSON.stringify(yesNoQuestions));
+            localStorage.setItem("classroomCode", classroomCode);
+
+            feedback.textContent = "All assessments saved!";
+            
+            // Redirect to classroom page with the classroom code
+            window.location.href = `assessment-page.html?classroomCode=${classroomCode}`;
+        });
+
+        // Handle Classroom Redirection (classroom.html)
+        const urlParams = new URLSearchParams(window.location.search);
+        const classroomCode = urlParams.get('classroomCode');
+        if (classroomCode) {
+            document.getElementById("classroomInfo").textContent = `Classroom Code: ${classroomCode}`;
+        }
+        let mcqQuestions = JSON.parse(localStorage.getItem("mcqQuestions")) || [];
+
+// Save new MCQ
+document.getElementById("createMCQForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const question = document.getElementById("mcqQuestion").value.trim();
+    const optionA = document.getElementById("optionA").value.trim();
+    const optionB = document.getElementById("optionB").value.trim();
+    const optionC = document.getElementById("optionC").value.trim();
+    const optionD = document.getElementById("optionD").value.trim();
+    const correctOption = document.getElementById("correctOption").value;
+
+    const feedback = document.getElementById("mcqFeedback");
+    feedback.textContent = "";
+
+    if (!question || !optionA || !optionB || !optionC || !optionD || !correctOption) {
+        feedback.textContent = "Please fill out all fields.";
+        feedback.style.color = "red";
+        return;
+    }
+
+    mcqQuestions.push({
+        question,
+        options: { A: optionA, B: optionB, C: optionC, D: optionD },
+        correctAnswer: correctOption
+    });
+
+    localStorage.setItem("mcqQuestions", JSON.stringify(mcqQuestions));
+
+    // Reset form
+    event.target.reset();
+    feedback.textContent = "MCQ saved!";
+    feedback.style.color = "green";
+    renderMCQs();
+});
+
+// Render saved MCQs
+function renderMCQs() {
+    const list = document.getElementById("mcqList");
+    list.innerHTML = "";
+    if (mcqQuestions.length === 0) {
+        list.innerHTML = "<p>No multiple choice questions added yet.</p>";
+        return;
+    }
+
+    mcqQuestions.forEach(function(mcq, index) {
+        const mcqElement = document.createElement("div");
+        mcqElement.classList.add("question");
+        mcqElement.innerHTML = `
+            <p><strong>Q:</strong> ${mcq.question}</p>
+            <ul>
+                <li>A. ${mcq.options.A}</li>
+                <li>B. ${mcq.options.B}</li>
+                <li>C. ${mcq.options.C}</li>
+                <li>D. ${mcq.options.D}</li>
+            </ul>
+            <p><strong>Correct Answer:</strong> ${mcq.correctAnswer}</p>
+            <button onclick="removeMCQ(${index})">Remove</button>
+        `;
+        list.appendChild(mcqElement);
+    });
+}
+
+// Remove an MCQ
+function removeMCQ(index) {
+    mcqQuestions.splice(index, 1);
+    localStorage.setItem("mcqQuestions", JSON.stringify(mcqQuestions));
+    renderMCQs();
+}
+
+renderMCQs(); // Call on page load
+    </script>
+</body>
+</html>
+

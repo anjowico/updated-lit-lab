@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fb 0%, #e0e4e8 100%);
+            background-size: cover;
+            background-attachment: fixed;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Title */
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #444;
+        }
+
+        /* Story Container */
+        .stories-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .story {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .story h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .story p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .back-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            text-align: center;
+            display: block;
+            width: 200px;
+            margin: 20px auto 0;
+        }
+
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Subtle Background Pattern */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .stories-container {
+                padding: 10px;
+            }
+
+            .story {
+                padding: 15px;
+            }
+
+            .back-btn {
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>All Saved Stories</h1>
+
+    <div class="stories-container" id="stories-container">
+        <!-- Saved stories will appear here -->
+    </div>
+
+    <!-- Back Button -->
+    <button onclick="window.location.href='classroom.html'" class="back-btn">Back to Classroom</button>
+
+    <script>
+        // Function to load saved stories from local storage and display them
+        function loadStories() {
+            const stories = JSON.parse(localStorage.getItem('stories')) || [];
+            const storiesContainer = document.getElementById('stories-container');
+
+            if (stories.length === 0) {
+                storiesContainer.innerHTML = '<p>No stories saved yet.</p>';
+            } else {
+                stories.forEach((story) => {
+                    const storyDiv = document.createElement('div');
+                    storyDiv.classList.add('story');
+                    storyDiv.innerHTML = ` 
+                        <h3>${story.title}</h3>
+                        <p><strong>Author:</strong> ${story.author}</p>
+                        <p><strong>Content:</strong><br>${story.content}</p>
+                    `;
+                    storiesContainer.appendChild(storyDiv);
+                });
+            }
+        }
+
+        // Load stories when the page is loaded
+        window.onload = loadStories;
+    </script>
+
+</body>
+</html>

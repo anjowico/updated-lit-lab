@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Literary Piece</title>
+    <!-- Google Fonts for cleaner typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #a8c0ff, #3f4c6b);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        /* Form Container Styling */
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Title Styling */
+        h1 {
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #444;
+        }
+
+        /* Form Elements Styling */
+        label {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 500;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #555;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+            outline: none;
+        }
+
+        /* Button Styling */
+        .button, .reset-button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 48%;
+            transition: background-color 0.3s ease;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .reset-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .reset-button:hover {
+            background-color: #e53935;
+        }
+
+        /* Form Button Container */
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 500px) {
+            .form-container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .button, .reset-button {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+
+        /* Stories Container */
+        .stories-container {
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .story {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .story h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .story p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            float: right;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #e53935;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Add Literary Piece</h1>
+        <form id="literary-form">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter the title" required aria-required="true">
+            
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" placeholder="Enter the author's name" required aria-required="true">
+            
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="6" placeholder="Write the content here..." required aria-required="true"></textarea>
+
+            <div class="form-buttons">
+                <button class="button" type="submit">Save Literary Piece</button>
+                <button type="reset" class="reset-button">Clear</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="stories-container" id="stories-container">
+        <h2>Saved Stories</h2>
+        <!-- Saved stories will appear here -->
+    </div>
+
+    <script>
+        // Function to load saved stories from local storage
+        function loadStories() {
+            const stories = JSON.parse(localStorage.getItem('stories')) || [];
+            const storiesContainer = document.getElementById('stories-container');
+
+            storiesContainer.innerHTML = '<h2>Saved Stories</h2>'; // Reset the container
+            stories.forEach((story, index) => {
+                const storyDiv = document.createElement('div');
+                storyDiv.classList.add('story');
+                storyDiv.innerHTML = `
+                    <h3>${story.title}</h3>
+                    <p><strong>Author:</strong> ${story.author}</p>
+                    <p><strong>Content:</strong><br>${story.content}</p>
+                    <button class="delete-btn" onclick="deleteStory(${index})">Delete</button>
+                `;
+                storiesContainer.appendChild(storyDiv);
+            });
+        }
+
+        // Function to delete a story
+        function deleteStory(index) {
+            // Get the current stories
+            const stories = JSON.parse(localStorage.getItem('stories')) || [];
+
+            // Remove the story at the specified index
+            stories.splice(index, 1);
+
+            // Update localStorage
+            localStorage.setItem('stories', JSON.stringify(stories));
+
+            // Reload the stories to reflect the deletion
+            loadStories();
+        }
+
+        // Form submission handler
+        document.getElementById('literary-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            const title = document.getElementById('title').value.trim();
+            const author = document.getElementById('author').value.trim();
+            const content = document.getElementById('content').value.trim();
+
+            // Simple validation
+            if (title === '' || author === '' || content === '') {
+                alert('All fields are required.');
+            } else {
+                // Save the new story in local storage
+                const newStory = { title, author, content };
+                const stories = JSON.parse(localStorage.getItem('stories')) || [];
+                stories.push(newStory);
+                localStorage.setItem('stories', JSON.stringify(stories));
+
+                // Clear the form and reload the stories
+                document.getElementById('literary-form').reset();
+                loadStories(); // Reload stories to display the new one
+            }
+        });
+
+        // Load stories on page load
+        window.onload = loadStories;
+    </script>
+</body>
+</html>

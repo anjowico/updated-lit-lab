@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #457B9D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #1D3557;
+        }
+        .deleteButton {
+            background-color: red;
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .deleteButton:hover {
+            background-color: #9b1111;
+        }
+        .assessmentResults {
+            margin-top: 10px;
+            text-align: left;
+        }
+        .assessmentResults p {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Records</h1>
+    <button class="button" onclick="goBack()">Go Back</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Grade Level</th>
+                <th>Section</th>
+                <th>Email</th>
+                <th>Assessment Results</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="studentRecords"></tbody>
+    </table>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        window.onload = function() {
+            // Retrieve student data from localStorage
+            const studentDetails = JSON.parse(localStorage.getItem("studentDetails"));
+
+            if (studentDetails) {
+                const tableBody = document.getElementById("studentRecords");
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${studentDetails.name || 'N/A'}</td>
+                    <td>${studentDetails.gradeLevel || 'N/A'}</td>
+                    <td>${studentDetails.section || 'N/A'}</td>
+                    <td>${studentDetails.email || 'N/A'}</td>
+                    <td>${displayAssessmentResults()}</td>
+                    <td><button class="deleteButton" onclick="deleteRecord()">Delete</button></td>
+                `;
+                tableBody.appendChild(row);
+            } else {
+                document.getElementById("studentRecords").innerHTML = "<tr><td colspan='6'>No student records available.</td></tr>";
+            }
+        };
+
+        // Function to display assessment results from localStorage
+        function displayAssessmentResults() {
+            const results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+            
+            if (results.length === 0) {
+                return "No assessment results.";
+            }
+
+            // Create a container for all results
+            const resultsContainer = document.createElement('div');
+            resultsContainer.classList.add('assessmentResults');
+
+            results.forEach(result => {
+                const resultElement = document.createElement('p');
+                resultElement.innerHTML = `<strong>${result.assessment}</strong>: ${result.result === 1 ? 'Correct' : 'Incorrect'}`;
+                resultsContainer.appendChild(resultElement);
+            });
+
+            return resultsContainer.outerHTML;
+        }
+
+        // Function to delete a student record from localStorage
+        function deleteRecord() {
+            // Remove student data and assessment results from localStorage
+            localStorage.removeItem("studentDetails");
+            localStorage.removeItem("assessmentResults");
+
+            // Refresh the page to update the table
+            window.location.reload();
+        }
+    </script>
+
+</body>
+</html>

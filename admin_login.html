@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - ACCIE Lit Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2ac9e6 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+        .form-container h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            background-color: #2575fc;
+            color: white;
+            padding: 12px 20px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .form-container button:hover {
+            background-color: #62fc1b;
+        }
+        .form-container .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Login</h1>
+    <div class="form-container">
+        <h2>Login to Manage Classrooms</h2>
+        <input type="text" id="adminUsername" placeholder="Username" required>
+        <input type="password" id="adminPassword" placeholder="Password" required>
+        <button onclick="loginAdmin()">Login</button>
+        <p class="error-message" id="errorMessage">Invalid credentials. Please try again.</p>
+    </div>
+
+    <script>
+        function loginAdmin() {
+            const username = document.getElementById("adminUsername").value;
+            const password = document.getElementById("adminPassword").value;
+
+            // Dummy admin login for now
+            if (username === "admin" && password === "password123") {
+                localStorage.setItem("isAdmin", "true");
+                window.location.href = "admin_dashboard.html";  // Redirect to admin dashboard
+            } else {
+                document.getElementById("errorMessage").style.display = "block"; // Show error message
+            }
+        }
+    </script>
+</body>
+</html>

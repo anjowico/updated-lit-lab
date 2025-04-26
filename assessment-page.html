@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styling */
+        body {
+            font-family: 'Baloo 2', cursive;
+            background-color: #fdf6ec;
+            background-image: radial-gradient(circle at top left, #fff7e8 0%, #fdf6ec 100%);
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Heading */
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            font-size: 42px;
+            margin: 40px 0 20px;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Navigation Links Styling */
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #118ab2;
+            font-size: 18px;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #06d6a0;
+        }
+
+        /* Assessment Box Styling */
+        .assessment {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #fffaf3;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.07);
+            border-left: 8px solid #ffd166;
+            text-align: left;
+        }
+
+        .assessment:nth-of-type(odd) {
+            background-color: #fff7eb;
+        }
+
+        .assessment h2 {
+            color: #ff6f61;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .assessment p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Activity Section Styling */
+        .activity {
+            margin-top: 25px;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #118ab2;
+            margin-bottom: 10px;
+        }
+
+        /* Input Box Styling */
+        .input-box,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        .input-box:focus,
+        textarea:focus {
+            border-color: #06d6a0;
+            box-shadow: 0 0 5px rgba(6, 214, 160, 0.3);
+            outline: none;
+        }
+
+        /* Button Styling */
+        .button,
+        .yes-no-btns button {
+            background-color: #06d6a0;
+            color: white;
+            padding: 12px 22px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .button:hover,
+        .yes-no-btns button:hover {
+            background-color: #05b38c;
+        }
+
+        /* Feedback Message Styling */
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 6px solid #28a745;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 6px solid #dc3545;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 3px;
+            background-color: #eee;
+            border-radius: 2px;
+            margin: 50px 0;
+        }
+
+        /* Label Styling */
+        label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #118ab2;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .input-box,
+            textarea {
+                font-size: 15px;
+                padding: 12px;
+            }
+
+            .button,
+            .yes-no-btns button {
+                font-size: 15px;
+                padding: 10px 18px;
+            }
+
+            .assessment h2 {
+                font-size: 26px;
+            }
+
+            .activity h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+    <div class="container">
+        <h1>📚 Assessment Page</h1>
+
+        <!-- Let's Go Visit Thailand Activity -->
+        <div class="assessment">
+            <h2>🇹🇭 Let's Go Visit Thailand</h2>
+            <p>The story of <strong>Let's Go Visit Thailand</strong> takes us on an exciting journey to a beautiful country, exploring its culture, cuisine, and landmarks. Read through the questions below based on the story.</p>
+            <!-- Activities here -->
+
+            <div class="activity">
+                <h3>🔤 Jumbled Word</h3>
+                <p>Rearrange the jumbled letters to form a word: <strong>TALNADIH</strong></p>
+                <input type="text" id="jumbledThailand" class="input-box" placeholder="Type the word here">
+                <button class="button" onclick="checkJumbledWord('thailand', 'jumbledThailand', 'thailandFeedback', 'Jumbled Word - Thailand')">✅ Submit</button>
+                <div id="thailandFeedback" class="feedback"></div>
+            </div>
+
+            <div class="activity">
+                <h3>📘 Definition of Terms</h3>
+                <div class="question-section">
+                    <label for="word1Thailand">Word 1: <strong>Culture</strong></label><br>
+                    <textarea id="word1Thailand" class="input-box" placeholder="Write the definition for Culture"></textarea>
+                </div>
+                <div class="question-section">
+                    <label for="word2Thailand">Word 2: <strong>Cuisine</strong></label><br>
+                    <textarea id="word2Thailand" class="input-box" placeholder="Write the definition for Cuisine"></textarea>
+                </div>
+                <button class="button" onclick="submitDefinitions('word1Thailand', 'word2Thailand', 'thailandDefinitionFeedback', 'Definitions - Thailand')">✅ Submit Definitions</button>
+                <div id="thailandDefinitionFeedback" class="feedback"></div>
+            </div>
+
+            <div class="activity">
+                <h3>✍️ Fill in the Blank</h3>
+                <p>1. Thailand is famous for its delicious __________. (Hint: food)</p>
+                <input type="text" id="fillThailandBlank" class="input-box" placeholder="Type the word here">
+                <button class="button" onclick="checkFillInBlank('cuisine', 'fillThailandBlank', 'thailandFillBlankFeedback', 'Fill in the Blank - Thailand')">✅ Submit</button>
+                <div id="thailandFillBlankFeedback" class="feedback"></div>
+            </div>
+            
+            <div class="activity">
+                <h3>👍👎 Yes/No Question</h3>
+                <p>2. Thailand is known for its beautiful temples and beaches. (Yes/No)</p>
+                <div class="yes-no-btns">
+                    <button onclick="checkYesNo('true', 'thailandYesNoFeedback', 'Yes/No - Thailand')">👍 Yes</button>
+                    <button onclick="checkYesNo('false', 'thailandYesNoFeedback', 'Yes/No - Thailand')">👎 No</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- The Stonecutter Activity -->
+        <div class="assessment">
+            <h2>🪨 Stonecutter</h2>
+            <p>The story of <strong>The Stonecutter</strong> shows the importance of being content with one's life. Read through the questions below based on the story.</p>
+            <div class="activity">
+                <h3>🔤 Jumbled Word</h3>
+                <p>Rearrange the jumbled letters to form a word: <strong>ERTSTNEOCUT</strong></p>
+                <input type="text" id="jumbledStonecutter" class="input-box" placeholder="Type the word here">
+                <button class="button" onclick="checkJumbledWord('stonecutter', 'jumbledStonecutter', 'stonecutterFeedback', 'Jumbled Word - Stonecutter')">✅ Submit</button>
+                <div id="stonecutterFeedback" class="feedback"></div>
+            </div>
+        
+            <div class="activity">
+                <h3>📘 Definition of Terms</h3>
+                <div class="question-section">
+                    <label for="word1Stonecutter">Word 1: <strong>Envy</strong></label><br>
+                    <textarea id="word1Stonecutter" class="input-box" placeholder="Write the definition for Envy"></textarea>
+                </div>
+                <div class="question-section">
+                    <label for="word2Stonecutter">Word 2: <strong>Contentment</strong></label><br>
+                    <textarea id="word2Stonecutter" class="input-box" placeholder="Write the definition for Contentment"></textarea>
+                </div>
+                <button class="button" onclick="submitDefinitions('word1Stonecutter', 'word2Stonecutter', 'stonecutterDefinitionFeedback', 'Definitions - Stonecutter')">✅ Submit Definitions</button>
+                <div id="stonecutterDefinitionFeedback" class="feedback"></div>
+            </div>
+        
+            <div class="activity">
+                <h3>✍️ Fill in the Blank</h3>
+                <p>1. The stonecutter wished for more power out of __________. (Hint: a feeling of desire)</p>
+                <input type="text" id="fillStonecutterBlank" class="input-box" placeholder="Type the word here">
+                <button class="button" onclick="checkFillInBlank('envy', 'fillStonecutterBlank', 'stonecutterFillBlankFeedback', 'Fill in the Blank - Stonecutter')">✅ Submit</button>
+                <div id="stonecutterFillBlankFeedback" class="feedback"></div>
+            </div>
+        
+            <div class="activity">
+                <h3>👍👎 Yes/No Question</h3>
+                <p>2. The stonecutter was satisfied with his life after realizing the value of contentment. (Yes/No)</p>
+                <div class="yes-no-btns">
+                    <button onclick="checkYesNo('true', 'stonecutterYesNoFeedback', 'Yes/No - Stonecutter')">👍 Yes</button>
+                    <button onclick="checkYesNo('false', 'stonecutterYesNoFeedback', 'Yes/No - Stonecutter')">👎 No</button>
+                </div>
+                
+                <div id="stonecutterYesNoFeedback" class="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+        <div class="section-divider"></div>
+
+        <!-- The Rescued Pet Activity -->
+        <div class="assessment">
+            <h2>🐾 The Rescued Pet</h2>
+            <p>The story of <strong>The Rescued Pet</strong> emphasizes the importance of rescuing animals and giving them a loving home. Read through the questions below based on the story.</p>
+            <div class="activity">
+                <h3>🔤 Jumbled Word</h3>
+                <p>Rearrange the jumbled letters to form a word: <strong>TEP</strong></p>
+                <input type="text" id="jumbledPet" class="input-box" placeholder="Type the word here">
+                <button class="button" onclick="checkJumbledWord('pet', 'jumbledPet', 'petFeedback', 'Jumbled Word - Pet')">✅ Submit</button>
+                <div id="petFeedback" class="feedback"></div>
+            </div>
+        
+            <div class="activity">
+                <h3>📘 Definition of Terms</h3>
+                <div class="question-section">
+                    <label for="word1Pet">Word 1: <strong>Adopt</strong></label><br>
+                    <textarea id="word1Pet" class="input-box" placeholder="Write the definition for Adopt"></textarea>
+                </div>
+                <div class="question-section">
+                    <label for="word2Pet">Word 2: <strong>Rescue</strong></label><br>
+                    <textarea id="word2Pet" class="input-box" placeholder="Write the definition for Rescue"></textarea>
+                </div>
+                <button class="button" onclick="submitDefinitions('word1Pet', 'word2Pet', 'petDefinitionFeedback', 'Definitions - Pet')">✅ Submit Definitions</button>
+                <div id="petDefinitionFeedback" class="feedback"></div>
+            </div>
+        
+            <div class="activity">
+                <h3>✍️ Fill in the Blank</h3>
+                <p>1. Adopting a __________ from the pound is a great way to help an animal in need. (Hint: pet)</p>
+                <input type="text" id="fillPetBlank" class="input-box" placeholder="Type the word here">
+                <button class="button" onclick="checkFillInBlank('pet', 'fillPetBlank', 'petFillBlankFeedback', 'Fill in the Blank - Pet')">✅ Submit</button>
+                <div id="petFillBlankFeedback" class="feedback"></div>
+            </div>
+        
+            <div class="activity">
+                <h3>👍👎 Yes/No Question</h3>
+                <p>2. It is important to adopt pets instead of buying them from pet stores. (Yes/No)</p>
+                <div class="yes-no-btns">
+                    <button onclick="checkYesNo('true', 'petYesNoFeedback', 'Yes/No - Pet')">👍Yes</button>
+                    <button onclick="checkYesNo('false', 'petYesNoFeedback', 'Yes/No - Pet')">👎No</button>
+                </div>
+               
+                
+                <div id="petYesNoFeedback" class="feedback"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    <script>
+        // Functions to handle the assessment and store results in localStorage
+
+        function checkJumbledWord(correctAnswer, inputId, feedbackId, assessment) {
+            var answer = document.getElementById(inputId).value.toLowerCase();
+            var feedbackElement = document.getElementById(feedbackId);
+
+            if (answer === correctAnswer) {
+                feedbackElement.textContent = 'Correct!';
+                feedbackElement.style.backgroundColor = '#d4edda';
+                saveAssessmentResult(assessment, 'Correct');
+            } else {
+                feedbackElement.textContent = 'Incorrect. The correct answer is ' + correctAnswer + '.';
+                feedbackElement.style.backgroundColor = '#f8d7da';
+                saveAssessmentResult(assessment, 'Incorrect');
+            }
+
+            feedbackElement.style.display = 'block';
+        }
+
+        function submitDefinitions(word1Id, word2Id, feedbackId, assessment) {
+            var word1 = document.getElementById(word1Id).value;
+            var word2 = document.getElementById(word2Id).value;
+            var feedbackElement = document.getElementById(feedbackId);
+
+            if (word1 && word2) {
+                feedbackElement.textContent = 'Definitions submitted successfully!';
+                feedbackElement.style.backgroundColor = '#d4edda';
+                saveAssessmentResult(assessment, 'Definitions Submitted');
+            } else {
+                feedbackElement.textContent = 'Please provide both definitions.';
+                feedbackElement.style.backgroundColor = '#f8d7da';
+                saveAssessmentResult(assessment, 'Definitions Missing');
+            }
+
+            feedbackElement.style.display = 'block';
+        }
+
+        function checkFillInBlank(correctAnswer, inputId, feedbackId, assessment) {
+            var answer = document.getElementById(inputId).value.toLowerCase();
+            var feedbackElement = document.getElementById(feedbackId);
+
+            if (answer === correctAnswer) {
+                feedbackElement.textContent = 'Correct!';
+                feedbackElement.style.backgroundColor = '#d4edda';
+                saveAssessmentResult(assessment, 'Correct');
+            } else {
+                feedbackElement.textContent = 'Incorrect. The correct answer is ' + correctAnswer + '.';
+                feedbackElement.style.backgroundColor = '#f8d7da';
+                saveAssessmentResult(assessment, 'Incorrect');
+            }
+
+            feedbackElement.style.display = 'block';
+        }
+
+        function checkYesNo(correctAnswer, feedbackId, assessment) {
+            var feedbackElement = document.getElementById(feedbackId);
+
+            if (correctAnswer === 'true') {
+                feedbackElement.textContent = 'Correct!';
+                feedbackElement.style.backgroundColor = '#d4edda';
+                saveAssessmentResult(assessment, 'Correct');
+            } else {
+                feedbackElement.textContent = 'Incorrect.';
+                feedbackElement.style.backgroundColor = '#f8d7da';
+                saveAssessmentResult(assessment, 'Incorrect');
+            }
+
+            feedbackElement.style.display = 'block';
+        }
+
+        // Function to save assessment results to localStorage
+        function saveAssessmentResult(assessment, result) {
+            var results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+            results.push({ assessment: assessment, result: result });
+            localStorage.setItem('assessmentResults', JSON.stringify(results));
+        }
+    </script>
+</body>
+</html>
+
+
+<button class="button" onclick="calculateTotalScore()">Show Total Score</button>
+<button class="button" onclick="window.location.href='Additional-assessment.html'">Go to Additional Assessment</button>
+<button class="button" onclick="window.location.href='multiple-choice.html'">Go to KNOWLEDGE QUEST</button>
+<button class="button" onclick="displayResults()">Show Assessment Results</button>
+
+<script>
+    // Functions to handle the assessment and store results in localStorage
+    
+    function checkJumbledWord(correctAnswer, inputId, feedbackId, assessment) {
+        var answer = document.getElementById(inputId).value.toLowerCase();
+        var feedbackElement = document.getElementById(feedbackId);
+    
+        if (answer === correctAnswer) {
+            feedbackElement.textContent = 'Correct!';
+            feedbackElement.style.backgroundColor = '#d4edda';
+            saveAssessmentResult(assessment, 1);  // 1 for Correct
+        } else {
+            feedbackElement.textContent = 'Incorrect. The correct answer is ' + correctAnswer + '.';
+            feedbackElement.style.backgroundColor = '#f8d7da';
+            saveAssessmentResult(assessment, 0);  // 0 for Incorrect
+        }
+    
+        feedbackElement.style.display = 'block';
+    }
+    
+    function submitDefinitions(word1Id, word2Id, feedbackId, assessment) {
+        var word1 = document.getElementById(word1Id).value;
+        var word2 = document.getElementById(word2Id).value;
+        var feedbackElement = document.getElementById(feedbackId);
+    
+        if (word1 && word2) {
+            feedbackElement.textContent = 'Definitions submitted successfully!';
+            feedbackElement.style.backgroundColor = '#d4edda';
+            saveAssessmentResult(assessment, 1);  // 1 for Definitions Submitted
+        } else {
+            feedbackElement.textContent = 'Please provide both definitions.';
+            feedbackElement.style.backgroundColor = '#f8d7da';
+            saveAssessmentResult(assessment, 0);  // 0 for Definitions Missing
+        }
+    
+        feedbackElement.style.display = 'block';
+    }
+    
+    function checkFillInBlank(correctAnswer, inputId, feedbackId, assessment) {
+        var answer = document.getElementById(inputId).value.toLowerCase();
+        var feedbackElement = document.getElementById(feedbackId);
+    
+        if (answer === correctAnswer) {
+            feedbackElement.textContent = 'Correct!';
+            feedbackElement.style.backgroundColor = '#d4edda';
+            saveAssessmentResult(assessment, 1);  // 1 for Correct
+        } else {
+            feedbackElement.textContent = 'Incorrect. The correct answer is ' + correctAnswer + '.';
+            feedbackElement.style.backgroundColor = '#f8d7da';
+            saveAssessmentResult(assessment, 0);  // 0 for Incorrect
+        }
+    
+        feedbackElement.style.display = 'block';
+    }
+    
+    function checkYesNo(correctAnswer, feedbackId, assessment) {
+        var feedbackElement = document.getElementById(feedbackId);
+    
+        if (correctAnswer === 'true') {
+            feedbackElement.textContent = 'Correct!';
+            feedbackElement.style.backgroundColor = '#d4edda';
+            saveAssessmentResult(assessment, 1);  // 1 for Correct
+        } else {
+            feedbackElement.textContent = 'Incorrect.';
+            feedbackElement.style.backgroundColor = '#f8d7da';
+            saveAssessmentResult(assessment, 0);  // 0 for Incorrect
+        }
+    
+        feedbackElement.style.display = 'block';
+    }
+    
+    // Function to save assessment results to localStorage
+    function saveAssessmentResult(assessment, result) {
+        var results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+        results.push({ assessment: assessment, result: result });
+        localStorage.setItem('assessmentResults', JSON.stringify(results));
+    }
+    
+    // Function to calculate the total score
+    function calculateTotalScore() {
+        var results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+        var score = results.reduce(function (total, result) {
+            return total + result.result;
+        }, 0);
+    
+        // Display the score
+        alert("Your total score is: " + score);
+    }
+    
+    // Function to display the results of each assessment as numeric values
+    function displayResults() {
+        var results = JSON.parse(localStorage.getItem('assessmentResults')) || [];
+        var resultString = results.map(function (result) {
+            return result.assessment + ': ' + result.result;
+        }).join('\n');
+    
+        alert(resultString);  // Show results as a list of assessment names and numeric values (1 or 0)
+    }
+    </script>
+    
+<script>
+    // Function to check the selected answer and provide feedback
+function checkMultipleChoice(questionName, correctAnswer, feedbackElementId, questionLabel) {
+    // Get all radio buttons for the current question
+    var radios = document.getElementsByName(questionName);
+    var selectedAnswer = null;
+
+    // Check which radio button is selected
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            selectedAnswer = radios[i].value;
+            break;
+        }
+    }
+
+    // Get the feedback element for this question
+    var feedbackElement = document.getElementById(feedbackElementId);
+
+    // Check if an answer is selected
+    if (selectedAnswer === null) {
+        feedbackElement.innerHTML = "Please select an answer.";
+        feedbackElement.style.color = "red";
+        return;
+    }
+
+    // Check if the selected answer is correct and provide feedback
+    if (selectedAnswer === correctAnswer) {
+        feedbackElement.innerHTML = "Correct! " + questionLabel;
+        feedbackElement.style.color = "green";
+    } else {
+        feedbackElement.innerHTML = "Incorrect. The correct answer is: " + correctAnswer + ".";
+        feedbackElement.style.color = "red";
+    }
+}
+
+// Function to save the assessment results (if needed for further functionality)
+function saveAssessmentResult() {
+    // You can modify this to save results locally or send them to a server if needed
+    alert("Assessment results have been saved.");
+}
+</script>
+    </script>
+</body>
+</html>

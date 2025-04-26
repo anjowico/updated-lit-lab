@@ -1,0 +1,37 @@
+/* styles.css */
+/* Add this animated gradient background */
+@keyframes gradientAnimation {
+    0% {
+        background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    }
+    50% {
+        background: linear-gradient(45deg, #ff6a00, #ee0979);
+    }
+    100% {
+        background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    }
+}
+
+body {
+    animation: gradientAnimation 10s ease-in-out infinite; /* Add the animation */
+    background: linear-gradient(45deg, #ff7e5f, #feb47b); /* Starting background */
+    background-size: 400% 400%; /* This is for the smooth gradient transition effect */
+    font-family: 'Poppins', sans-serif; /* Keep your current font */
+    margin: 0;
+    padding: 0;
+    color: white; /* White text for better contrast on the animated background */
+    height: 100vh; /* Ensure the background covers the full screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1, h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    z-index: 1; /* Ensure text stays on top of the background */
+}
+
+/* Any other existing styles should stay the same */

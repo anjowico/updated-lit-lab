@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling with Gradient and Background Image */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f4f4f9 0%, #e0e4e8 100%);
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/geometry.png'); /* Example background image */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Form Container with Soft Blurred Background */
+        .form-section {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(8px); /* Blur effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            font-size: 24px;
+            color: #444;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+            text-align: left;
+        }
+
+        .form-section input,
+        .form-section select,
+        .form-section button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-section input:focus,
+        .form-section select:focus,
+        .form-section button:focus {
+            border-color: #2575fc;
+            outline: none;
+            box-shadow: 0 0 10px rgba(37, 117, 252, 0.3);
+        }
+
+        .form-section button {
+            background-color: #2575fc;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .form-section button:hover {
+            background-color: #62fc1b;
+            transform: scale(1.05);
+        }
+
+        .form-section button:active {
+            transform: scale(1);
+        }
+
+        /* Classroom List Container */
+        #classroomListContainer {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #classroomSearch {
+            padding: 12px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        #classroomSearch:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        .classroom-item {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .classroom-item:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .classroom-item:active {
+            transform: scale(0.98);
+        }
+
+        /* Mobile Responsive Styling */
+        @media (max-width: 600px) {
+            .form-section {
+                padding: 25px;
+            }
+
+            .form-section input,
+            .form-section select,
+            .form-section button {
+                font-size: 14px;
+            }
+
+            #classroomListContainer {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Student Registration Form -->
+    <div id="studentFormContainer" class="form-section">
+        <h2>Student Registration</h2>
+        <form id="fillForm">
+            <label for="studentName">Full Name:</label>
+            <input type="text" id="studentName" placeholder="Enter your full name" required><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Non-binary">Non-binary</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select><br>
+
+            <label for="gradeLevel">Grade Level:</label>
+            <input type="text" id="gradeLevel" placeholder="Enter your grade level" required><br>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" placeholder="Enter your section" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required><br>
+
+            <button type="submit">Submit</button>
+        </form>
+        <p><button id="haveAccountBtn">Already have an account?</button></p>
+    </div>
+
+    <!-- Email Verification Form -->
+    <div id="emailVerificationContainer" class="form-section" style="display: none;">
+        <h2>Email Verification</h2>
+        <label for="verifyEmail">Enter your email:</label>
+        <input type="email" id="verifyEmail" placeholder="Enter your email" required><br>
+        <button id="verifyEmailBtn">Verify Email</button>
+    </div>
+
+    <!-- Classroom List -->
+    <div id="classroomListContainer">
+        <h2>Select a Classroom</h2>
+        <input type="text" id="classroomSearch" placeholder="Search Classroom by Name" oninput="searchClassrooms()">
+        <div id="classroomList"></div>
+    </div>
+
+    <script>
+        document.getElementById("fillForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Store the student details in localStorage
+            const studentDetails = {
+                name: document.getElementById("studentName").value,
+                gender: document.getElementById("gender").value,
+                gradeLevel: document.getElementById("gradeLevel").value,
+                section: document.getElementById("section").value,
+                email: document.getElementById("email").value
+            };
+
+            localStorage.setItem("studentDetails", JSON.stringify(studentDetails));
+
+            // Show classroom selection
+            document.getElementById("studentFormContainer").style.display = "none";
+            document.getElementById("classroomListContainer").style.display = "block";
+
+            populateClassrooms();
+        });
+
+        // Handle "Already have an account?" button click
+        document.getElementById("haveAccountBtn").addEventListener("click", function() {
+            document.getElementById("studentFormContainer").style.display = "none";
+            document.getElementById("emailVerificationContainer").style.display = "block";
+        });
+
+        // Email verification logic
+        document.getElementById("verifyEmailBtn").addEventListener("click", function() {
+            const enteredEmail = document.getElementById("verifyEmail").value;
+            const storedStudentDetails = JSON.parse(localStorage.getItem("studentDetails"));
+
+            if (storedStudentDetails && storedStudentDetails.email === enteredEmail) {
+                // Email matches, show classroom selection
+                document.getElementById("emailVerificationContainer").style.display = "none";
+                document.getElementById("classroomListContainer").style.display = "block";
+
+                populateClassrooms();
+            } else {
+                alert("No account found with that email. Please try again.");
+            }
+        });
+
+        function populateClassrooms() {
+            const classrooms = JSON.parse(localStorage.getItem("classrooms")) || [];
+            const classroomList = document.getElementById("classroomList");
+            classroomList.innerHTML = "";
+
+            classrooms.forEach(classroom => {
+                const classroomItem = document.createElement("div");
+                classroomItem.classList.add("classroom-item");
+                classroomItem.textContent = `${classroom.name}`;  // Only show the name
+                classroomItem.onclick = function() {
+                    // Prompt the student to enter the classroom code
+                    const classroomCode = prompt("Enter the classroom code to join:");
+                    if (classroomCode === classroom.code) {
+                        alert("Successfully joined the classroom!");
+                        window.location.href = `classroom.html?name=${encodeURIComponent(classroom.name)}&code=${classroom.code}`;
+                    } else {
+                        alert("Incorrect classroom code. Please try again.");
+                    }
+                };
+                classroomList.appendChild(classroomItem);
+            });
+        }
+
+        // Function to search classrooms by name
+        function searchClassrooms() {
+            const searchQuery = document.getElementById("classroomSearch").value.toUpperCase();
+            const classrooms = JSON.parse(localStorage.getItem("classrooms")) || [];
+            const filteredClassrooms = classrooms.filter(classroom =>
+                classroom.name.toUpperCase().includes(searchQuery)
+            );
+            const classroomList = document.getElementById("classroomList");
+            classroomList.innerHTML = "";
+
+            filteredClassrooms.forEach(classroom => {
+                const classroomItem = document.createElement("div");
+                classroomItem.classList.add("classroom-item");
+                classroomItem.textContent = `${classroom.name}`;  // Only show the name
+                classroomItem.onclick = function() {
+                    // Prompt the student to enter the classroom code
+                    const classroomCode = prompt("Enter the classroom code to join:");
+                    if (classroomCode === classroom.code) {
+                        alert("Successfully joined the classroom!");
+                        window.location.href = `classroom.html?name=${encodeURIComponent(classroom.name)}&code=${classroom.code}`;
+                    } else {
+                        alert("Incorrect classroom code. Please try again.");
+                    }
+                };
+                classroomList.appendChild(classroomItem);
+            });
+        }
+    </script>
+</body>
+</html>

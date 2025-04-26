@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Dashboard - ACCIE Lit Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1D3557;
+      --accent: #457B9D;
+      --success: #62fc1b;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url(BG.jpg) no-repeat center center fixed;
+      background-size: cover;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard,
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: var(--primary);
+      border-radius: 12px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--success);
+      transform: translateY(-2px);
+    }
+
+    .form-container {
+      display: none;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    #classroomCode {
+      display: none;
+      margin-top: 15px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        width: 80px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <img src="LOGO.png" alt="ACCIE Logo" class="logo">
+
+  <!-- Teacher Dashboard -->
+  <div class="dashboard">
+    <h1>Welcome, Teacher</h1>
+    <button onclick="showForm('classroomForm')">Create a Classroom</button>
+    <button onclick="redirectToLogin()">Manage Classroom</button>
+    <button onclick="redirectToAdminLogin()">Delete Classroom</button>
+  </div>
+
+  <!-- Classroom Creation Form -->
+  <div id="classroomForm" class="form-container">
+    <h2>Create a Classroom</h2>
+    <input type="text" id="classroomName" placeholder="Enter Classroom Name" required>
+    <button onclick="createClassroom()">Submit</button>
+    <p id="classroomCode"></p>
+  </div>
+
+  <script>
+    // Check admin access
+    window.onload = function () {
+      const isAdmin = localStorage.getItem("isAdmin");
+      document.getElementById('manageClassroomBtn').style.display = isAdmin === "true" ? 'block' : 'none';
+      document.getElementById('createClassroomBtn').style.display = isAdmin === "true" ? 'block' : 'none';
+    };
+
+    // Show the form
+    function showForm(id) {
+      document.getElementById(id).style.display = "block";
+    }
+
+    // Redirect functions
+    function redirectToLogin() {
+      window.location.href = 'login.html';
+    }
+
+    function redirectToAdminLogin() {
+      window.location.href = 'admin_login.html';
+    }
+
+    // Generate classroom code
+    function generateClassroomCode() {
+      return Math.random().toString(36).substr(2, 8).toUpperCase();
+    }
+
+    // Create classroom
+    function createClassroom() {
+      const name = document.getElementById('classroomName').value.trim();
+      if (!name) {
+        alert("Please enter a classroom name.");
+        return;
+      }
+
+      const classroomCode = generateClassroomCode();
+      const classrooms = JSON.parse(localStorage.getItem("classrooms")) || [];
+      classrooms.push({ name, code: classroomCode });
+      localStorage.setItem("classrooms", JSON.stringify(classrooms));
+
+      document.getElementById('classroomCode').innerText = `Classroom Code: ${classroomCode}`;
+      document.getElementById('classroomCode').style.display = 'block';
+
+      alert(`Classroom "${name}" created successfully!\nYour classroom code is: ${classroomCode}`);
+      window.location.href = `classroom.html?name=${encodeURIComponent(name)}&code=${classroomCode}`;
+    }
+  </script>
+
+</body>
+</html>

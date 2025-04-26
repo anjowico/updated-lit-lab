@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ACCIE Lit Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1D3557;
+      --accent: #457B9D;
+      --light: #F1FAEE;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 60px 20px 40px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #e63946, #f1faee, #e63946);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
+      100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    .buttons button {
+      background: var(--white);
+      color: var(--primary);
+      padding: 16px 32px;
+      margin: 15px;
+      border: 3px solid var(--primary);
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .buttons button:hover {
+      background: var(--accent);
+      color: var(--white);
+      transform: scale(1.05);
+    }
+
+    section.features {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--primary);
+      padding: 40px 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .feature {
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .feature h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .feature p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      .buttons button {
+        width: 90%;
+        font-size: 20px;
+      }
+
+      .feature {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <img src="LOGO.png" alt="ACCIE Logo" class="logo" />
+    <h1>ACCIE Lit Lab</h1>
+    <div class="buttons">
+      <button onclick="goToPage('teacher.html')">Teacher</button>
+      <button onclick="goToPage('student.html')">Student</button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature">
+      <h2>For Students</h2>
+      <p>Join engaging literary classes, interact with peers, and unleash your creativity.</p>
+    </div>
+    <div class="feature">
+      <h2>For Teachers</h2>
+      <p>Create classrooms, share knowledge, and guide the next generation of literary minds.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 ACCIE Lit Lab. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function goToPage(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>

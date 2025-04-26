@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Login - ACCIE Lit Lab</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2; /* Light background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://www.w3schools.com/w3images/rocks.jpg'); /* Optional background image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-container input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            color: #FF0000;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Optional responsive design */
+        @media (max-width: 480px) {
+            .form-container {
+                width: 80%;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Teacher Login</h1>
+    <div class="form-container">
+        <input type="text" id="username" placeholder="Enter Username" required autocomplete="off">
+        <input type="password" id="password" placeholder="Enter Password" required autocomplete="off">
+        <button onclick="login()">Login</button>
+        <p id="alertMessage" class="alert"></p>
+    </div>
+
+    <script>
+        // Login logic for the teacher
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Example credentials check (this can be replaced with a backend verification)
+            if (username === "teacher" && password === "password123") {
+                // Store login status in localStorage
+                localStorage.setItem("isAdmin", "true");
+                localStorage.setItem("username", username);
+
+                // Redirect to enter classroom code page after successful login
+                window.location.href = "enter-classroom-code.html";  // Redirect to the enter-classroom-code page
+            } else {
+                // Show error message for invalid credentials
+                const alertMessage = document.getElementById("alertMessage");
+                alertMessage.textContent = "Invalid credentials. Please try again.";
+                alertMessage.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
